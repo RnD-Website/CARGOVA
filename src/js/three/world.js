@@ -235,10 +235,10 @@ export function createWorld(canvas) {
     const inner = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.OctahedronGeometry(0.32)), orangeLine);
     inner.position.y = 0.45;
     v0.add(wire, inner);
-    // v1: white package with the CARGOVA label on top (after the dispatch hub "opens" it)
+    // v1: plain white package (after the dispatch hub) — no label yet
     const v1 = new THREE.Group();
-    labelledPackage(v1, 0.9, 0.8, 0.9, 0);
-    // v2: palletised white CARGOVA package
+    box(v1, 0.9, 0.8, 0.9, 0, 0.4, 0, COL.white);
+    // v2: palletised package with the CARGOVA brand label (after the warehouse)
     const v2 = new THREE.Group();
     box(v2, 1.1, 0.16, 1.1, 0, 0.08, 0, COL.navy);
     labelledPackage(v2, 1.0, 0.75, 1.0, 0.16);
