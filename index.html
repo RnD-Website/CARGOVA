@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-wf-page="cargova-home">
+<head>
+  <meta charset="utf-8" />
+  <title>CARGOVA — Intelligent Global Logistics Network</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CARGOVA is a premium global logistics and transportation network. Intelligent logistics. Seamless transportation. Global connections." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CARGOVA — Intelligent Global Logistics Network" />
+  <meta property="og:description" content="Intelligent logistics. Seamless transportation. Global connections." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/svg/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/svg/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fallback web fonts (drop DepartureMono-Regular.woff2 into assets/fonts for the exact pixel-mono face) -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="dist/cargova.css" />
+
+  <!-- Umami Analytics (replace data-website-id with your own) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="REPLACE-WITH-UMAMI-ID"></script>
+</head>
+
+<body class="body is-loading">
+
+  <!-- ============ PRELOADER ============ -->
+  <div id="preloader" class="preloader">
+    <div id="preloader-units" class="preloader-units">
+      <div class="preloader-unit" data-variant="0"></div>
+      <div class="preloader-unit" data-variant="1"></div>
+      <div class="preloader-unit" data-variant="2"></div>
+      <div class="preloader-unit" data-variant="3"></div>
+    </div>
+    <div id="preloader-text" class="preloader-text">loading <span id="preloader-progress">0</span>%</div>
+    <div id="preloader-border" class="preloader-border"><div class="preloader-bar"></div></div>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="border-container"><div class="border-frame"></div></div>
+
+    <main id="main-wrapper" class="main-wrapper">
+
+      <!-- ============ NAV ============ -->
+      <nav class="nav-bar">
+        <a href="#" class="home-button" aria-label="CARGOVA home" data-goto="hero">
+          <div id="logo-blueprint" class="logo-brandname">
+            <span class="logo-mark" data-logo="blueprint"></span>
+            <svg class="logo-word" viewBox="0 0 160 48" aria-hidden="true"><text x="2" y="35" class="wordmark wordmark--blueprint">cargova</text></svg>
+          </div>
+          <div id="logo" class="logo-brandname ontop">
+            <span class="logo-mark" data-logo="color"></span>
+            <svg class="logo-word" viewBox="0 0 160 48" aria-hidden="true"><text x="2" y="35" class="wordmark wordmark--color">cargova</text></svg>
+          </div>
+        </a>
+
+        <div id="nav" class="navigation">
+          <a href="#" class="nav-link is-current"><span class="nav-dot"></span><span class="link-text">home</span></a>
+          <a href="#" class="nav-link"><span class="nav-dot"></span><span class="link-text">insights</span></a>
+          <a href="#" class="nav-link last"><span class="nav-dot"></span><span class="link-text">docs</span></a>
+        </div>
+
+        <a href="#" id="nav-button" class="button nav is-hidden-mobile scramble">
+          <span class="scramble-container"><span class="shadow-text">get a quote</span><span class="scramble-text">get a quote</span></span>
+        </a>
+
+        <div id="mobile-menu" class="mobile-menu">
+          <button class="button nav mobile-menu-toggle" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          <div class="mobile-menu_dropdown">
+            <div class="navigation is-mobile">
+              <a href="#" class="nav-link is-current"><span class="nav-dot"></span><span class="link-text">home</span></a>
+              <a href="#" class="nav-link"><span class="nav-dot"></span><span class="link-text">insights</span></a>
+              <a href="#" class="nav-link last"><span class="nav-dot"></span><span class="link-text">docs</span></a>
+            </div>
+            <a href="#" class="button nav visible scramble"><span class="scramble-container"><span class="shadow-text">get a quote</span><span class="scramble-text">get a quote</span></span></a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ============ HERO ============ -->
+      <div id="hero" class="hero-content">
+        <div class="hero-big-preview">
+          <div class="hero-unit">
+            <div class="hero-units-list">
+              <div id="unit-1" class="unit-big-preview" data-stage="1"></div>
+              <div id="unit-2" class="unit-big-preview" data-stage="2"></div>
+              <div id="unit-3" class="unit-big-preview" data-stage="3"></div>
+              <div id="unit-4" class="unit-big-preview" data-stage="4"></div>
+              <div id="unit-5" class="unit-big-preview is-active" data-stage="5"></div>
+            </div>
+          </div>
+
+          <div class="specification-box">
+            <div class="large-box">
+              <div class="label large">project</div>
+              <div class="display">the world's freight layer</div>
+            </div>
+            <div class="small-boxes">
+              <div class="small-box underline">
+                <div class="label">sector</div>
+                <div class="display small">global logistics</div>
+              </div>
+              <div id="hex-code" class="small-box">
+                <div class="label">hex-code</div>
+                <div class="display small hex" data-hex="43 41 52 47 4F 56 41">43 41 52 47 4F 56 41</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" id="hero-button-tablet" class="button hero hide-on-desktop scramble" data-start>
+            <span class="scramble-container"><span class="shadow-text">start dispatch</span><span class="scramble-text">start dispatch</span></span>
+          </a>
+        </div>
+
+        <div class="hero-sidebar">
+          <div id="station-nav-list" class="station-nav-list">
+            <a href="#" class="station-nav-link" data-station="1"><span class="station-icon" data-stage="1"></span><span class="station-copy"><span class="label">station 1</span><span class="display very-small">welcome to cargova</span></span></a>
+            <a href="#" class="station-nav-link" data-station="2"><span class="station-icon" data-stage="2"></span><span class="station-copy"><span class="label">station 2</span><span class="display very-small">move with us</span></span></a>
+            <a href="#" class="station-nav-link" data-station="3"><span class="station-icon" data-stage="3"></span><span class="station-copy"><span class="label">station 3</span><span class="display very-small">start shipping</span></span></a>
+            <a href="#" class="station-nav-link" data-station="4"><span class="station-icon" data-stage="4"></span><span class="station-copy"><span class="label">station 4</span><span class="display very-small">track &amp; api</span></span></a>
+            <a href="#" class="station-nav-link" data-station="5"><span class="station-icon" data-stage="5"></span><span class="station-copy"><span class="label">station 5</span><span class="display very-small">join our network</span></span></a>
+          </div>
+          <a href="#" id="hero-button" class="button hero scramble" data-start>
+            <span class="scramble-container"><span class="shadow-text">start dispatch</span><span class="scramble-text">start dispatch</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ============ STATIONS ============ -->
+      <div class="stations-content">
+        <div class="background-tiles"></div>
+
+        <!-- Three.js logistics world (replaces the reference's Rive factory canvas) -->
+        <div id="world-container" class="world-container"><canvas id="world-canvas"></canvas></div>
+
+        <div class="stations">
+
+          <!-- STATION 1 -->
+          <div id="station-1" class="station" data-index="1">
+            <div class="station-boxes">
+              <div class="white-text-box">
+                <div class="white-text-copy">
+                  <div class="label" data-type>welcome to cargova</div>
+                  <h1 class="heading h1" data-type>Logistics done better</h1>
+                </div>
+              </div>
+              <div class="draggable-box box-1-a">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="accordeon-wrapper is-no-accordion">
+                  <p class="paragraph">CARGOVA is a global logistics network that turns fragmented freight into one intelligent, connected flow.</p>
+                </div>
+              </div>
+              <div class="draggable-box box-1-b">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="accordeon-wrapper is-no-accordion">
+                  <p class="paragraph">Our mission is to move the world's goods faster and smarter across sea, air, rail and road, without ever compromising reliability.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATION 2 -->
+          <div id="station-2" class="station" data-index="2">
+            <div class="station-boxes">
+              <div class="white-text-box">
+                <div class="white-text-copy">
+                  <div class="label" data-type>global</div>
+                  <h2 class="heading h3" data-type>Reach</h2>
+                </div>
+                <div class="heading h3 plus" data-type>+</div>
+                <div class="white-text-copy">
+                  <div class="label" data-type>real-time</div>
+                  <h2 class="heading h3" data-type>Speed &amp; Visibility</h2>
+                </div>
+              </div>
+              <div class="draggable-box box-2-a">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="accordeon-wrapper underline is-open">
+                  <button class="accordion-header"><h3 class="heading h7">Multimodal Freight</h3><span class="chev"></span></button>
+                  <div class="accordion-content"><p class="paragraph accordion">Book ocean, air, rail and road in one shipment. Cargo switches modes automatically and stays on a single, unbroken manifest.</p></div>
+                </div>
+                <div class="accordeon-wrapper underline">
+                  <button class="accordion-header"><h3 class="heading h7">High Throughput + Lower Costs</h3><span class="chev"></span></button>
+                  <div class="accordion-content"><p class="paragraph accordion">Moves 30,000+ TEU every week across 140 ports, with consolidated rates that cut landed cost by up to 22%.</p></div>
+                </div>
+                <div class="accordeon-wrapper">
+                  <button class="accordion-header"><h3 class="heading h7">Insured &amp; Secured Cargo</h3><span class="chev"></span></button>
+                  <div class="accordion-content"><p class="paragraph accordion">Every load is sealed, tracked and fully insured door to door. If anything goes wrong, the claim settles automatically.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATION 3 -->
+          <div id="station-3" class="station" data-index="3">
+            <div class="station-boxes">
+              <div class="white-text-box">
+                <div class="white-text-copy">
+                  <div class="label" data-type>start shipping</div>
+                  <h2 class="heading h3" data-type>Building supply chains just got easier</h2>
+                </div>
+              </div>
+              <div class="draggable-box box-3-a">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="split-text-box no-border is-open">
+                  <div class="icon-container"><span class="icon" data-icon="customs"></span></div>
+                  <div class="accordion-small">
+                    <button class="accordion-header small"><h3 class="heading h7">Customs-Grade Compliance</h3><span class="chev"></span></button>
+                    <div class="accordion-content small"><p class="paragraph accordion small">Digital customs filing checks every document before departure, wiping out clearance delays, missing paperwork and costly port holds.</p></div>
+                  </div>
+                </div>
+                <div class="split-text-box">
+                  <div class="icon-container"><span class="icon" data-icon="route"></span></div>
+                  <div class="accordion-small">
+                    <button class="accordion-header small"><h3 class="heading h7">Predictive Route Optimization</h3><span class="chev"></span></button>
+                    <div class="accordion-content small"><p class="paragraph accordion small">Live weather, port congestion and fuel data reroute cargo before delays happen, so shipments land on time.</p></div>
+                  </div>
+                </div>
+                <div class="split-text-box">
+                  <div class="icon-container"><span class="icon" data-icon="warehouse"></span></div>
+                  <div class="accordion-small">
+                    <button class="accordion-header small"><h3 class="heading h7">Connected Warehousing</h3><span class="chev"></span></button>
+                    <div class="accordion-content small"><p class="paragraph accordion small">Plug into fulfilment centres, cross-docks and bonded storage on every continent.</p></div>
+                  </div>
+                </div>
+                <a href="#" class="button inside-box scramble"><span class="scramble-container"><span class="shadow-text">start shipping</span><span class="scramble-text">start shipping</span></span></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATION 4 -->
+          <div id="station-4" class="station" data-index="4">
+            <div class="station-boxes">
+              <div class="white-text-box">
+                <div class="white-text-copy">
+                  <h2 class="heading h3" data-type>Let's see what's coming</h2>
+                </div>
+              </div>
+              <div class="draggable-box box-4-a">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="accordeon-wrapper is-no-accordion">
+                  <h3 class="heading h6">Docs</h3>
+                  <p class="paragraph">Shipping guides, rate APIs and integration tools for your operations</p>
+                </div>
+                <a href="#" class="button inside-box scramble"><span class="scramble-container"><span class="shadow-text">read the freight manual</span><span class="scramble-text">read the freight manual</span></span></a>
+              </div>
+              <div class="draggable-box box-4-b">
+                <span class="drag-handle" aria-hidden="true"></span>
+                <div class="accordeon-wrapper is-no-accordion">
+                  <h3 class="heading h6">Live Tracking</h3>
+                  <p class="paragraph">Track, test and connect your shipments in real time</p>
+                </div>
+                <div class="under-construction-banner">
+                  <div class="text-shadow-small">under construction</div>
+                  <div class="stripes"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATION 5 -->
+          <div id="station-5" class="station" data-index="5">
+            <div class="station-boxes">
+              <div class="white-text-box">
+                <div class="white-text-copy">
+                  <h2 class="heading h2" data-type>Join our network</h2>
+                </div>
+              </div>
+              <div id="partner-marquee" class="partners">
+                <div class="label">and meet our partners</div>
+                <div class="marquee-track">
+                  <div class="marquee-content">
+                    <a href="#" class="partner-link">Meridian Freight</a>
+                    <a href="#" class="partner-link">Northbay Ports</a>
+                    <a href="#" class="partner-link">Atlas Rail</a>
+                    <a href="#" class="partner-link">Halcyon Air Cargo</a>
+                    <a href="#" class="partner-link">Bluewater Lines</a>
+                    <a href="#" class="partner-link">Keystone Depots</a>
+                    <a href="#" class="partner-link">TKD</a>
+                    <a href="#" class="partner-link">Polar Route</a>
+                    <a href="#" class="partner-link">Sable Shipping</a>
+                    <a href="#" class="partner-link">Tidewell Terminals</a>
+                    <a href="#" class="partner-link">Orbit Haulage</a>
+                    <a href="#" class="partner-link">VSL</a>
+                    <a href="#" class="partner-link">Corvid Customs</a>
+                    <a href="#" class="partner-link">Granite Fleet</a>
+                  </div>
+                </div>
+              </div>
+              <div class="community-buttons hide-on-mobile">
+                <a href="#" class="button community-1"><span class="icon" data-icon="linkedin"></span><span>follow us on linkedin</span></a>
+                <a href="#" class="button community-2"><span class="icon" data-icon="mail"></span><span>join our newsletter</span></a>
+                <a href="#" class="button community-3"><span class="icon" data-icon="phone"></span><span>talk to freight sales</span></a>
+              </div>
+              <div class="community-buttons hide-on-desktop">
+                <a href="#" class="button community-1" aria-label="LinkedIn"><span class="icon" data-icon="linkedin"></span></a>
+                <a href="#" class="button community-2" aria-label="Newsletter"><span class="icon" data-icon="mail"></span></a>
+                <a href="#" class="button community-3" aria-label="Freight sales"><span class="icon" data-icon="phone"></span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ STATION SELECTOR (bottom-left) ============ -->
+      <div id="station-selection" class="station-selection">
+        <div id="station-links" class="station-selection-dropdown">
+          <a href="#" class="station-selection-button dropdown" data-station="1"><span class="station-icon" data-stage="1"></span><span class="station-selection-copy"><span class="label">station 1</span><span class="display very-small">why cargova?</span></span></a>
+          <a href="#" class="station-selection-button dropdown" data-station="2"><span class="station-icon" data-stage="2"></span><span class="station-selection-copy"><span class="label">station 2</span><span class="display very-small">move with us</span></span></a>
+          <a href="#" class="station-selection-button dropdown" data-station="3"><span class="station-icon" data-stage="3"></span><span class="station-selection-copy"><span class="label">station 3</span><span class="display very-small">start shipping</span></span></a>
+          <a href="#" class="station-selection-button dropdown" data-station="4"><span class="station-icon" data-stage="4"></span><span class="station-selection-copy"><span class="label">station 4</span><span class="display very-small">track &amp; api</span></span></a>
+          <a href="#" class="station-selection-button dropdown" data-station="5"><span class="station-icon" data-stage="5"></span><span class="station-selection-copy"><span class="label">station 5</span><span class="display very-small">join our network</span></span></a>
+        </div>
+        <button id="active-station-button" class="station-button-wrapper">
+          <span class="station-selection-button"><span class="station-icon active-icon" data-stage="1"></span></span>
+          <span class="station-selection-copy"><span class="label" id="active-station-label">station 1</span><span class="display very-small" id="active-station-title">why cargova?</span></span>
+        </button>
+      </div>
+
+      <div id="footer-mask" class="footer-mask"></div>
+
+      <!-- ============ FOOTER ============ -->
+      <section id="footer" class="footer">
+        <div class="footer-wrapper">
+          <div class="footer-content">
+            <div class="footer-top-part">
+              <div class="logo-footer">
+                <span class="logo-mark logo-mark--xl" data-logo="blueprint"></span>
+                <svg class="logo-word" viewBox="0 0 160 48" aria-hidden="true"><text x="2" y="35" class="wordmark wordmark--blueprint">cargova</text></svg>
+              </div>
+              <div class="display medium text-align-center">Intelligent Global Freight</div>
+            </div>
+            <div class="footer-3d-embed">
+              <div id="canvas-container"><canvas id="footer-canvas"></canvas></div>
+            </div>
+            <div class="footer-bottom">
+              <a href="#" class="button footer-button scramble" data-goto="top"><span class="scramble-container"><span class="shadow-text">back to the dock ↑</span><span class="scramble-text">back to the dock ↑</span></span></a>
+              <div class="copyright">©2026 cargova all rights reserved</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- jQuery 3.5.1 (Webflow runtime dependency) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <!-- App bundle (Webpack): GSAP + Observer + Draggable + Three.js -->
+  <script src="dist/cargova.bundle.js"></script>
+</body>
+</html>

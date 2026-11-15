@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Responsive — mirrors the reference's tablet (≤991) and mobile (≤767) transforms
+   ========================================================================== */
+
+@media (max-width: 1279px) {
+  .hero-sidebar { width: 360px; }
+  .specification-box { width: 100%; }
+  .small-boxes { width: 300px; }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 991px) {
+  :root { --frame: 12px; }
+
+  .hide-on-desktop { display: flex !important; }
+  .hero-sidebar { display: none; }
+  .hero-content { flex-direction: column; }
+  .hero-big-preview { border: 1px solid var(--white); border-radius: var(--radius); overflow: hidden; }
+  .hero-units-list { width: min(529px, 64vh, 80vw); height: min(529px, 64vh, 80vw); }
+  .specification-box { flex-direction: column; border-right: 0; }
+  .large-box { padding: 24px 16px; }
+  .small-boxes { width: 100%; flex-direction: row; border-left: 0; border-top: 1px solid var(--white); }
+  .small-box { padding: 16px; }
+  .small-box.underline { border-bottom: 0; border-right: 1px solid var(--white); }
+  .button.hero { border-radius: 0; height: 60px; }
+
+  /* stations: boxes dock to the bottom, full width (reference: station-boxes fixed bottom) */
+  .station-boxes {
+    inset: auto 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .station-boxes > * { position: relative !important; left: auto !important; top: auto !important; }
+  .white-text-box, #station-3 .white-text-box, #station-4 .white-text-box, #station-5 .white-text-box { width: 100%; }
+  .draggable-box { width: 100%; }
+  .heading.h1 { font-size: 56px; line-height: 61.6px; }
+  .heading.h2 { font-size: 48px; line-height: 52.8px; }
+  .heading.h3 { font-size: 34px; line-height: 37.4px; }
+  .partners { width: 100%; }
+  .community-buttons { width: 100%; }
+  .station-selection { left: 24px; bottom: auto; top: 96px; }
+  .station-selection .station-selection-copy { display: none; }
+  .station-selection-dropdown { bottom: auto; top: 80px; }
+  .station-selection-dropdown .station-selection-copy { display: flex; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 767px) {
+  .nav-bar { top: 24px; left: 24px; right: 24px; }
+  .navigation:not(.is-mobile) { display: none; }
+  .is-hidden-mobile { display: none !important; }
+  .mobile-menu { display: block; opacity: 0; }
+  .home-button { width: 170px; }
+  .logo-word { width: 110px; }
+
+  .label { font-size: 14px; line-height: 18px; }
+  .display { font-size: 20px; line-height: 24px; }
+  .display.small { font-size: 16px; line-height: 20px; }
+  .large-box { padding: 16px; }
+  .small-box { padding: 12px 16px; }
+
+  .heading.h1 { font-size: 40px; line-height: 44px; }
+  .heading.h2 { font-size: 36px; line-height: 39.6px; }
+  .heading.h3 { font-size: 26px; line-height: 28.6px; }
+  .heading.h7 { font-size: 18px; line-height: 22px; }
+  .station-boxes { inset: auto 16px 16px 16px; gap: 8px; }
+  .white-text-box { gap: 6px; }
+  .accordion-header { padding: 12px 16px; }
+  .accordeon-wrapper.is-no-accordion { padding: 12px 16px; }
+  .paragraph { font-size: 15px; line-height: 20px; }
+  .paragraph.accordion { padding: 0 16px 12px; }
+  .community-buttons { height: auto; display: flex !important; gap: 8px; }
+  .community-buttons .button { position: relative; left: auto !important; top: auto !important; width: 48px; padding: 0; }
+  .station-selection { left: 16px; top: 84px; }
+  .station-selection-button { width: 48px; height: 48px; }
+  .station-selection-button .station-icon { width: 34px; height: 34px; }
+  .footer-wrapper { padding: 96px 16px 24px; }
+  .display.medium { font-size: 24px; line-height: 28px; }
+  .logo-footer .logo-word { width: 150px; }
+  .logo-mark--xl, .logo-mark--xl svg { width: 52px; height: 52px; }
+}
+
+@media (min-width: 768px) {
+  .hide-on-mobile { display: block; }
+}
+@media (max-width: 767px) {
+  .hide-on-mobile { display: none !important; }
+}
+@media (min-width: 768px) {
+  .community-buttons.hide-on-desktop { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stripes { animation: none; }
+}
