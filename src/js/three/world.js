@@ -246,11 +246,12 @@ export function createWorld(canvas) {
     const v3 = new THREE.Group();
     box(v3, 1.7, 0.85, 0.9, 0, 0.43, 0, COL.orange);
     for (let k = -0.7; k <= 0.71; k += 0.2) box(v3, 0.04, 0.7, 0.92, k, 0.43, 0, COL.orangeDark, { edges: false, shadow: false });
-    // v4: CARGOVA branded container (white + orange band)
+    // v4: same red container after the tracking station — now sealed + tagged, heading to the truck
     const v4 = new THREE.Group();
-    box(v4, 1.7, 0.85, 0.9, 0, 0.43, 0, COL.white);
-    box(v4, 1.72, 0.18, 0.92, 0, 0.5, 0, COL.orange, { edges: false });
-    box(v4, 0.5, 0.14, 0.02, -0.4, 0.68, 0.46, COL.navy, { edges: false });
+    box(v4, 1.7, 0.85, 0.9, 0, 0.43, 0, COL.orange);
+    for (let k = -0.7; k <= 0.71; k += 0.2) box(v4, 0.04, 0.7, 0.92, k, 0.43, 0, COL.orangeDark, { edges: false, shadow: false });
+    box(v4, 0.5, 0.16, 0.02, -0.45, 0.62, 0.47, COL.white, { edges: false });   // tracking tag
+    box(v4, 0.06, 0.6, 0.94, 0.86, 0.43, 0, COL.navy, { edges: false });        // door seal bar
     [v0, v1, v2, v3, v4].forEach((x) => { x.visible = false; g.add(x); v.push(x); });
     g.userData.v = v;
     g.position.y = BELT_Y;

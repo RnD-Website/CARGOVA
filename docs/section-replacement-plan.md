@@ -17,7 +17,7 @@ Order, layout, sizes and choreography are kept; only the brand, copy and visuals
 | 9 | Footer: mask wipe, logo + tagline, Three.js outlined model (OrbitControls, bob), `back to the future ↑`, © | Same | Outlined CARGOVA container on pallet, "Intelligent Global Freight", `back to the dock ↑` |
 
 ## Units travelling the conveyor
-order (wire cube) → parcel → palletised crate → shipping container → CARGOVA-branded container.
+order (wire cube) → white CARGOVA package → palletised package → red shipping container → sealed & tagged red container → loaded into the CARGOVA truck at the dock.
 This mirrors the reference's units changing form at each station.
 
 ## Responsive
