@@ -126,7 +126,7 @@ export function createFooterScene(canvas, container) {
   const aspect = () => container.offsetWidth / Math.max(1, container.offsetHeight);
   const camera = new THREE.OrthographicCamera(-frustum * aspect(), frustum * aspect(), frustum, -frustum, 0.1, 1000);
   camera.position.set(5, 4.3, 5);
-  camera.lookAt(0, -0.55, 0);       // frame the truck + road with room for the road to fade out below
+  camera.lookAt(0, -0.25, 0);       // centred on the truck body
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -138,7 +138,7 @@ export function createFooterScene(canvas, container) {
   controls.enableZoom = false;
   controls.enablePan = false;
   controls.enabled = !isMobileUA();
-  controls.target.set(0, -0.55, 0);  // same framing point as camera.lookAt above
+  controls.target.set(0, -0.25, 0);  // same framing point as camera.lookAt above
   controls.update();
   // turntable only: lock the viewing height so the truck can't be flipped into a top-down view
   const polar = controls.getPolarAngle();
@@ -158,37 +158,47 @@ export function createFooterScene(canvas, container) {
   composer.addPass(outline);
   composer.addPass(new OutputPass());
 
-  // ---------- road (isometric strip with moving lane markings) ----------
+  // ---------- road: flat strip under the truck that dissolves into the page on both sides ----------
   const ROAD_Y = -0.96;               // top of the road = bottom of the wheels
+  const ROAD_LEN = 7.6;
+  const CORE = 1.6;                   // fully visible within ±CORE of the truck centre
+  const FADE_END = 3.4;               // fully transparent from ±FADE_END
   const road = new THREE.Group();
-  // alpha ramp along the road's length: ends dissolve into the page instead of a hard cut
   const fadeTex = (() => {
-    const c = document.createElement('canvas'); c.width = 256; c.height = 4;
-    const g = c.getContext('2d').createLinearGradient(0, 0, 256, 0);
-    g.addColorStop(0, '#000'); g.addColorStop(0.4, '#fff'); g.addColorStop(0.62, '#fff'); g.addColorStop(1, '#000');
-    const x = c.getContext('2d'); x.fillStyle = g; x.fillRect(0, 0, 256, 4);
+    const c = document.createElement('canvas'); c.width = 512; c.height = 4;
+    const x = c.getContext('2d');
+    const g = x.createLinearGradient(0, 0, 512, 0);
+    const u = (v) => (v + ROAD_LEN / 2) / ROAD_LEN;
+    g.addColorStop(0, '#000'); g.addColorStop(u(-FADE_END), '#000');
+    g.addColorStop(u(-CORE), '#fff'); g.addColorStop(u(CORE), '#fff');
+    g.addColorStop(u(FADE_END), '#000'); g.addColorStop(1, '#000');
+    x.fillStyle = g; x.fillRect(0, 0, 512, 4);
     return new THREE.CanvasTexture(c);
   })();
-  const ROAD_HALF = 3.8;
-  const roadMat = (c) => new THREE.MeshBasicMaterial({ color: c, alphaMap: fadeTex, transparent: true, depthWrite: false });
-  const slab = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.12, 2.5), roadMat(0x0a3a60));
-  slab.position.y = ROAD_Y - 0.06;
-  const kerbA = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.16, 0.14), roadMat(0x1d5d92));
-  kerbA.position.set(0, ROAD_Y - 0.04, 1.32);
-  const kerbB = kerbA.clone(); kerbB.position.z = -1.32;
-  const edgeMat = roadMat(0xffffff);
-  const edgeA = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.012, 0.05), edgeMat);
-  edgeA.position.set(0, ROAD_Y + 0.006, 1.08);
-  const edgeB = edgeA.clone(); edgeB.position.z = -1.08;
-  road.add(slab, kerbA, kerbB, edgeA, edgeB);
+  // planes only (no side/end faces), so nothing shows a hard edge where the road ends
+  const strip = (w, z, y, color) => {
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(ROAD_LEN, w),
+      new THREE.MeshBasicMaterial({ color, alphaMap: fadeTex, transparent: true, depthWrite: false })
+    );
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(0, y, z);
+    road.add(mesh);
+    return mesh;
+  };
+  strip(2.5, 0, ROAD_Y, 0x0a3a60);                 // asphalt
+  strip(0.14, 1.32, ROAD_Y + 0.002, 0x1d5d92);     // kerbs
+  strip(0.14, -1.32, ROAD_Y + 0.002, 0x1d5d92);
+  strip(0.05, 1.08, ROAD_Y + 0.004, 0xffffff);     // edge lines
+  strip(0.05, -1.08, ROAD_Y + 0.004, 0xffffff);
   const DASH_GAP = 0.9;
   const dashes = [];
   for (let x = -3.7; x < 3.7; x += DASH_GAP) {
-    const d = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.014, 0.07), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false }));
-    d.position.set(x, ROAD_Y + 0.007, 0);
+    const d = new THREE.Mesh(new THREE.PlaneGeometry(0.45, 0.07), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false }));
+    d.rotation.x = -Math.PI / 2;
+    d.position.set(x, ROAD_Y + 0.006, 0);
     road.add(d); dashes.push(d);
   }
-  road.position.x = 0.25;            // centred under the truck; both ends fully fade inside the canvas
   scene.add(road);
 
   // the exact truck from the station-5 dock (shared model), shaded like the logistics world
@@ -226,8 +236,8 @@ export function createFooterScene(canvas, container) {
     dashes.forEach((d) => {
       d.position.x -= 0.03;
       if (d.position.x < -3.7) d.position.x += dashes.length * DASH_GAP;
-      const k = Math.abs(d.position.x) / ROAD_HALF;          // same fade as the road surface
-      d.material.opacity = k < 0.4 ? 1 : Math.max(0, 1 - (k - 0.4) / 0.6);
+      const ax = Math.abs(d.position.x);                       // same fade as the road surface
+      d.material.opacity = ax <= CORE ? 1 : Math.max(0, 1 - (ax - CORE) / (FADE_END - CORE));
     });
     model.rotation.y = -0.06 * Math.sin(t * 0.7);
     model.position.y = ROAD_Y + Math.abs(Math.sin(t * 6)) * 0.012;
@@ -239,7 +249,7 @@ export function createFooterScene(canvas, container) {
     const a = aspect();
     // wide canvas: fixed height; narrow (mobile) canvas: fit truck + road to the width
     // keep the whole truck (≈4.9 long) in frame at any turntable angle
-    const f = Math.max(2.85, 3.3 / a);
+    const f = Math.max(3.0, 3.5 / a);   // whole truck in frame at every drag angle, with margin
     camera.left = -f * a; camera.right = f * a; camera.top = f; camera.bottom = -f;
     camera.updateProjectionMatrix();
     renderer.setSize(container.offsetWidth, container.offsetHeight, false);
