@@ -5,12 +5,10 @@ import { assemblyStage, stationIcon, logoMark, preloaderTruck } from './iso-svg.
 import { scramble } from './text-effects.js';
 import { setDashboardStage } from './hero-dashboard.js';
 import { gsap } from 'gsap';
-import { Draggable } from 'gsap/Draggable';
-
-gsap.registerPlugin(Draggable);
+import { createHeroTruck } from '../three/hero-truck.js';
 
 export function mountIllustrations() {
-  document.querySelectorAll('.unit-big-preview').forEach((el) => {
+  document.querySelectorAll('.unit-big-preview:not([data-3d])').forEach((el) => {
     el.innerHTML = assemblyStage(Number(el.dataset.stage));
   });
   document.querySelectorAll('.station-icon').forEach((el) => {
@@ -57,35 +55,19 @@ export function initHeroInteractions({ onStart }) {
 }
 
 /**
- * Drag the hero unit around its viewport. While dragging it tilts in the
- * direction of travel and the part callouts fade; on release it drives back
- * to the centre with a soft elastic settle.
+ * Stage 5 is a real 3D truck: drag to spin it 360°. Part callouts fade while dragging.
  */
 function initTruckDrag() {
-  const unit = document.querySelector('.hud-viewport .hero-units-list');
-  const viewport = document.querySelector('.hud-viewport');
-  if (!unit || !viewport) return;
-  const callouts = viewport.querySelectorAll('.hud-callout');
-  let lastX = 0;
-  Draggable.create(unit, {
-    type: 'x,y',
-    bounds: viewport,
-    edgeResistance: 0.85,
-    cursor: 'grab',
-    activeCursor: 'grabbing',
-    onPress() {
-      lastX = this.x;
-      gsap.to(callouts, { autoAlpha: 0, duration: 0.2 });
-      gsap.to(unit, { scale: 1.04, duration: 0.25, ease: 'power2.out' });
-    },
-    onDrag() {
-      const vx = this.x - lastX;
-      lastX = this.x;
-      gsap.to(unit, { rotation: gsap.utils.clamp(-8, 8, vx * 0.9), duration: 0.3, ease: 'power2.out' });
-    },
-    onRelease() {
-      gsap.to(unit, { x: 0, y: 0, rotation: 0, scale: 1, duration: 1.1, ease: 'elastic.out(1, 0.55)' });
-      gsap.to(callouts, { autoAlpha: 1, duration: 0.3, delay: 0.7 });
-    },
-  });
+  const canvas = document.getElementById('hero-truck-canvas');
+  if (!canvas) return;
+  {
+    const truck = createHeroTruck(canvas);
+    const callouts = document.querySelectorAll('.hud-callout');
+    truck.onDrag((on) => gsap.to(callouts, { autoAlpha: on ? 0 : 1, duration: on ? 0.2 : 0.4, delay: on ? 0 : 0.4 }));
+    const hero = document.getElementById('hero');
+    // only render while the hero is on screen
+    const sync = () => (getComputedStyle(hero).visibility === 'hidden' || Number(getComputedStyle(hero).opacity) === 0 ? truck.stop() : truck.start());
+    sync();
+    new MutationObserver(sync).observe(hero, { attributes: true, attributeFilter: ['style'] });
+  }
 }

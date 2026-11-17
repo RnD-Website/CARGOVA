@@ -37,7 +37,7 @@ function liveryTexture() {
 }
 
 /** CARGOVA cargo truck — branded box trailer, orange cab, navy chassis */
-function buildCargoTruck() {
+export function buildCargoTruck() {
   const root = new THREE.Group();
   const M = (c) => new THREE.MeshBasicMaterial({ color: c });
   const add = (w, h, d, x, y, z, m) => {

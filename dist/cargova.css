@@ -764,7 +764,9 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
     radial-gradient(ellipse at center, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 62%);
 }
 .hud-viewport .hero-units-list { width: min(440px, 100%, 52vh); height: min(440px, 100%, 52vh); position: relative; z-index: 2; touch-action: none; user-select: none; }
-.hud-viewport .hero-units-list:hover { filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.25)); }
+.hud-viewport .hero-units-list { width: min(560px, 100%, 62vh); height: min(560px, 100%, 62vh); }
+#hero-truck-canvas { width: 100%; height: 100%; display: block; }
+.hud-hint { color: var(--navy); background: var(--white); padding: 0 6px; opacity: 1; }
 .hud-viewport-head {
   position: absolute; top: 10px; left: 14px; right: 14px;
   display: flex; justify-content: space-between; align-items: center; gap: 12px;
