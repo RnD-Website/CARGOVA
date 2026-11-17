@@ -85,12 +85,61 @@
       <div id="hero" class="hero-content">
         <div class="hero-big-preview">
           <div class="hero-unit">
-            <div class="hero-units-list">
-              <div id="unit-1" class="unit-big-preview" data-stage="1"></div>
-              <div id="unit-2" class="unit-big-preview" data-stage="2"></div>
-              <div id="unit-3" class="unit-big-preview" data-stage="3"></div>
-              <div id="unit-4" class="unit-big-preview" data-stage="4"></div>
-              <div id="unit-5" class="unit-big-preview is-active" data-stage="5"></div>
+
+            <!-- ===== Dashboard HUD: KPIs (left) ===== -->
+            <div class="hud-panel hud-kpis">
+              <div class="hud-status"><span class="hud-live-dot"></span><span>network online</span><span class="hud-clock" id="hud-clock">00:00:00 UTC</span></div>
+              <div class="hud-kpi">
+                <div class="label">shipments in transit</div>
+                <div class="hud-kpi-row"><span class="hud-kpi-value" id="kpi-transit" data-value="12486">12,486</span><span class="hud-delta">+2.4%</span></div>
+                <div class="hud-spark" data-spark="transit"></div>
+              </div>
+              <div class="hud-kpi">
+                <div class="label">on-time delivery</div>
+                <div class="hud-kpi-row"><span class="hud-kpi-value" id="kpi-ontime">98.7%</span><span class="hud-delta">+0.3%</span></div>
+                <div class="hud-meter"><span style="width:98.7%"></span></div>
+              </div>
+              <div class="hud-kpi">
+                <div class="label">active routes</div>
+                <div class="hud-kpi-row"><span class="hud-kpi-value" id="kpi-routes">1,204</span><span class="hud-delta">140 ports</span></div>
+                <div class="hud-modes"><span>sea 46%</span><span>road 31%</span><span>air 15%</span><span>rail 8%</span></div>
+              </div>
+            </div>
+
+            <!-- ===== Focus viewport around the unit ===== -->
+            <div class="hud-viewport">
+              <div class="hud-viewport-head">
+                <span class="hud-unit-id">unit cgv-40hc-0517</span>
+                <span class="hud-stage"><span id="hud-stage-label">stage 5/5 · ready to dispatch</span>
+                  <span class="hud-stage-bar"><i></i><i></i><i></i><i></i><i></i></span></span>
+              </div>
+              <span class="hud-corner tl"></span><span class="hud-corner tr"></span><span class="hud-corner bl"></span><span class="hud-corner br"></span>
+              <span class="hud-cross"></span>
+              <span class="hud-scan"></span>
+              <div class="hero-units-list">
+                <div id="unit-1" class="unit-big-preview" data-stage="1"></div>
+                <div id="unit-2" class="unit-big-preview" data-stage="2"></div>
+                <div id="unit-3" class="unit-big-preview" data-stage="3"></div>
+                <div id="unit-4" class="unit-big-preview" data-stage="4"></div>
+                <div id="unit-5" class="unit-big-preview is-active" data-stage="5"></div>
+              </div>
+              <div class="hud-callout c1"><span class="hud-callout-line"></span><span class="hud-callout-text" id="hud-callout-1">telemetry · live gps</span></div>
+              <div class="hud-callout c2"><span class="hud-callout-line"></span><span class="hud-callout-text" id="hud-callout-2">cab · ev drive 92%</span></div>
+              <div class="hud-dims"><span>l 12.2 m</span><span>w 2.5 m</span><span>h 4.0 m</span><span>payload 26.5 t</span></div>
+            </div>
+
+            <!-- ===== Right column: live log + route map ===== -->
+            <div class="hud-right">
+            <div class="hud-panel hud-log">
+              <div class="hud-panel-head"><span class="label">live shipments</span><span class="hud-live-dot"></span></div>
+              <ul id="hud-log-list" class="hud-log-list"></ul>
+            </div>
+
+            <!-- ===== Route map (right, bottom) ===== -->
+            <div class="hud-panel hud-map">
+              <div class="hud-panel-head"><span class="label">global routes</span><span class="hud-map-count">24 lanes</span></div>
+              <svg class="hud-map-svg" viewBox="0 0 300 130" aria-hidden="true"></svg>
+            </div>
             </div>
           </div>
 

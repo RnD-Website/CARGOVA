@@ -3,6 +3,7 @@
  */
 import { assemblyStage, stationIcon, logoMark, preloaderTruck } from './iso-svg.js';
 import { scramble } from './text-effects.js';
+import { setDashboardStage } from './hero-dashboard.js';
 
 export function mountIllustrations() {
   document.querySelectorAll('.unit-big-preview').forEach((el) => {
@@ -26,7 +27,10 @@ export function setActiveStationIcon(stage) {
 
 export function initHeroInteractions({ onStart }) {
   const previews = [...document.querySelectorAll('.unit-big-preview')];
-  const show = (stage) => previews.forEach((p) => p.classList.toggle('is-active', Number(p.dataset.stage) === stage));
+  const show = (stage) => {
+    previews.forEach((p) => p.classList.toggle('is-active', Number(p.dataset.stage) === stage));
+    setDashboardStage(stage);
+  };
 
   const list = document.getElementById('station-nav-list');
   list?.querySelectorAll('.station-nav-link').forEach((link) => {

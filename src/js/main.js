@@ -8,6 +8,7 @@ import '../css/hero.css';
 import '../css/stations.css';
 import '../css/footer.css';
 import '../css/responsive.css';
+import '../css/hero-dashboard.css';
 
 import { gsap } from 'gsap';
 import { createPreloader } from './ui/preloader.js';
@@ -15,6 +16,7 @@ import { mountIllustrations, initHeroInteractions } from './ui/hero.js';
 import { mountIcons } from './ui/icons.js';
 import { initScrambleButtons } from './ui/text-effects.js';
 import { initAccordions, initDraggables, initMarquee } from './ui/boxes.js';
+import { initHeroDashboard } from './ui/hero-dashboard.js';
 import { createWorld } from './three/world.js';
 import { createFooterScene } from './three/footer-scene.js';
 import { createExperience } from './core/experience.js';
@@ -25,7 +27,9 @@ function heroIntro() {
     .fromTo('.border-frame', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 0)
     .fromTo('#logo-blueprint', { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.1)
     .fromTo('.hero-unit', { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, 0.1)
-    .fromTo(items, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.06 }, 0.25);
+    .fromTo(items, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.06 }, 0.25)
+    .fromTo('.hud-panel, .hud-viewport-head, .hud-callout, .hud-dims', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08 }, 0.45)
+    .fromTo('.hud-corner', { scale: 1.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5, ease: 'back.out(2)', stagger: 0.05 }, 0.3);
 }
 
 function initMobileMenu() {
@@ -58,6 +62,7 @@ async function boot() {
   initDraggables();
   initMarquee();
   initMobileMenu();
+  initHeroDashboard();
 
   const experience = createExperience({ world, footer });
   initHeroInteractions({ onStart: (i) => experience.start(i) });
