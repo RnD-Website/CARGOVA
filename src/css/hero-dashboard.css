@@ -57,7 +57,8 @@
   background:
     radial-gradient(ellipse at center, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 62%);
 }
-.hud-viewport .hero-units-list { width: min(440px, 100%, 52vh); height: min(440px, 100%, 52vh); }
+.hud-viewport .hero-units-list { width: min(440px, 100%, 52vh); height: min(440px, 100%, 52vh); position: relative; z-index: 2; touch-action: none; user-select: none; }
+.hud-viewport .hero-units-list:hover { filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.25)); }
 .hud-viewport-head {
   position: absolute; top: 10px; left: 14px; right: 14px;
   display: flex; justify-content: space-between; align-items: center; gap: 12px;

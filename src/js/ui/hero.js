@@ -4,6 +4,10 @@
 import { assemblyStage, stationIcon, logoMark, preloaderTruck } from './iso-svg.js';
 import { scramble } from './text-effects.js';
 import { setDashboardStage } from './hero-dashboard.js';
+import { gsap } from 'gsap';
+import { Draggable } from 'gsap/Draggable';
+
+gsap.registerPlugin(Draggable);
 
 export function mountIllustrations() {
   document.querySelectorAll('.unit-big-preview').forEach((el) => {
@@ -45,7 +49,43 @@ export function initHeroInteractions({ onStart }) {
     b.addEventListener('click', (e) => { e.preventDefault(); onStart(0); })
   );
 
+  initTruckDrag();
+
   const hexBox = document.getElementById('hex-code');
   const hex = hexBox?.querySelector('.hex');
   hexBox?.addEventListener('mouseenter', () => scramble(hex, hex.dataset.hex, { duration: 0.7, chars: '0123456789ABCDEF' }));
+}
+
+/**
+ * Drag the hero unit around its viewport. While dragging it tilts in the
+ * direction of travel and the part callouts fade; on release it drives back
+ * to the centre with a soft elastic settle.
+ */
+function initTruckDrag() {
+  const unit = document.querySelector('.hud-viewport .hero-units-list');
+  const viewport = document.querySelector('.hud-viewport');
+  if (!unit || !viewport) return;
+  const callouts = viewport.querySelectorAll('.hud-callout');
+  let lastX = 0;
+  Draggable.create(unit, {
+    type: 'x,y',
+    bounds: viewport,
+    edgeResistance: 0.85,
+    cursor: 'grab',
+    activeCursor: 'grabbing',
+    onPress() {
+      lastX = this.x;
+      gsap.to(callouts, { autoAlpha: 0, duration: 0.2 });
+      gsap.to(unit, { scale: 1.04, duration: 0.25, ease: 'power2.out' });
+    },
+    onDrag() {
+      const vx = this.x - lastX;
+      lastX = this.x;
+      gsap.to(unit, { rotation: gsap.utils.clamp(-8, 8, vx * 0.9), duration: 0.3, ease: 'power2.out' });
+    },
+    onRelease() {
+      gsap.to(unit, { x: 0, y: 0, rotation: 0, scale: 1, duration: 1.1, ease: 'elastic.out(1, 0.55)' });
+      gsap.to(callouts, { autoAlpha: 1, duration: 0.3, delay: 0.7 });
+    },
+  });
 }
