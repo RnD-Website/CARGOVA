@@ -126,7 +126,7 @@ export function createFooterScene(canvas, container) {
   const aspect = () => container.offsetWidth / Math.max(1, container.offsetHeight);
   const camera = new THREE.OrthographicCamera(-frustum * aspect(), frustum * aspect(), frustum, -frustum, 0.1, 1000);
   camera.position.set(5, 4.3, 5);
-  camera.lookAt(0, -0.7, 0);       // frame the truck + road with room for the road to fade out below
+  camera.lookAt(0, -0.55, 0);       // frame the truck + road with room for the road to fade out below
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -138,7 +138,7 @@ export function createFooterScene(canvas, container) {
   controls.enableZoom = false;
   controls.enablePan = false;
   controls.enabled = !isMobileUA();
-  controls.target.set(0, -0.7, 0);  // same framing point as camera.lookAt above
+  controls.target.set(0, -0.55, 0);  // same framing point as camera.lookAt above
   controls.update();
   // turntable only: lock the viewing height so the truck can't be flipped into a top-down view
   const polar = controls.getPolarAngle();
@@ -239,7 +239,7 @@ export function createFooterScene(canvas, container) {
     const a = aspect();
     // wide canvas: fixed height; narrow (mobile) canvas: fit truck + road to the width
     // keep the whole truck (≈4.9 long) in frame at any turntable angle
-    const f = Math.max(frustum, 3.1 / a);
+    const f = Math.max(2.85, 3.3 / a);
     camera.left = -f * a; camera.right = f * a; camera.top = f; camera.bottom = -f;
     camera.updateProjectionMatrix();
     renderer.setSize(container.offsetWidth, container.offsetHeight, false);

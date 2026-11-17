@@ -6,7 +6,7 @@
  */
 import * as THREE from 'three';
 
-const COL = { orange: 0xfc5c21, white: 0xf4f8ff, sky: 0x6fb6ff, ink: 0x052338 };
+const COL = { orange: 0xfc5c21, white: 0xf4f8ff, sky: 0x6fb6ff, ink: 0x052338, tyre: 0x111111 };
 
 function liveryTexture() {
   const c = document.createElement('canvas');
@@ -63,7 +63,7 @@ export function buildDockTruck({ lineMat, mat } = {}) {
   const wheels = [];
   const wGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.22, 12);
   [[-1.4, 0.68], [-0.6, 0.68], [2.2, 0.68], [-1.4, -0.68], [-0.6, -0.68], [2.2, -0.68]].forEach(([a, b]) => {
-    const wh = new THREE.Mesh(wGeo, m(COL.ink));
+    const wh = new THREE.Mesh(wGeo, m(COL.tyre));             // black tyres
     wh.position.set(a, 0.28, b);
     wh.rotation.x = Math.PI / 2;
     wh.castShadow = true;
