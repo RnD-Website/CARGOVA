@@ -40,12 +40,29 @@ function toBlueprint(model) {
     return BLUEISH.has(m.color.getHex()) ? blue : white;
   };
   const tyre = new THREE.MeshBasicMaterial({ color: 0x111111 });
+  const rimMat = new THREE.MeshBasicMaterial({ color: 0x2a2a2a });
+  const hubMat = new THREE.MeshBasicMaterial({ color: WHITE, side: THREE.DoubleSide });
+  const tyreGeo = new THREE.CylinderGeometry(0.27, 0.27, 0.22, 48);
+  const rimGeo = new THREE.CircleGeometry(0.19, 40);
+  const hubGeo = new THREE.CircleGeometry(0.1, 32);
+  const tyreEdge = new THREE.LineBasicMaterial({ color: 0x111111 });
+  const isCyl = (o, r) => o.geometry.type === 'CylinderGeometry' && Math.abs(o.geometry.parameters.radiusTop - r) < 0.01;
+  const oldHubs = [];
   model.traverse((o) => {
     if (!o.isMesh) return;
-    // tyres (the 0.27-radius wheel cylinders) are black; hubs stay white
-    if (o.geometry.type === 'CylinderGeometry' && Math.abs(o.geometry.parameters.radiusTop - 0.27) < 0.01) {
+    if (isCyl(o, 0.11)) { oldHubs.push(o); return; }          // replaced by flush caps below
+    if (isCyl(o, 0.27)) {
+      // smooth round tyre + dark rim + white hub cap, on the outer face only
+      o.geometry = tyreGeo;
       o.material = tyre;
-      o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25), edgeMat));
+      o.add(new THREE.LineSegments(new THREE.EdgesGeometry(tyreGeo, 30), tyreEdge));
+      const out = o.position.z >= 0 ? 1 : -1;                 // which side faces outwards
+      const rim = new THREE.Mesh(rimGeo, rimMat);
+      const hub = new THREE.Mesh(hubGeo, hubMat);
+      // wheel is rotated so its local +y axis points along world z
+      rim.rotation.x = -out * Math.PI / 2; rim.position.y = out * 0.111;
+      hub.rotation.x = -out * Math.PI / 2; hub.position.y = out * 0.113;
+      o.add(rim, hub);
       return;
     }
     o.material = Array.isArray(o.material) ? o.material.map(pick) : pick(o.material);
@@ -53,6 +70,7 @@ function toBlueprint(model) {
     const isBlue = !Array.isArray(o.material) && o.material === blue;
     if (!isBlue) o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25), edgeMat));
   });
+  oldHubs.forEach((h) => h.parent && h.parent.remove(h));
   return model;
 }
 
