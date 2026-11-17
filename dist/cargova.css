@@ -339,14 +339,17 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .button.hero {
   width: 100%;
   height: 72px;               /* = --spec-row: top edge sits on the Sector / Hex code divider */
+  position: relative;
+  width: calc(100% + 1px);    /* covers the sidebar's left border line */
+  margin-left: -1px;
   flex: none;
   font-size: 16px;
   background: var(--white);
   color: var(--navy);
-  border: 1px solid var(--white);
+  border: 0;
   border-radius: 0;
 }
-.button.hero:hover { background: var(--orange); color: var(--navy); }
+.button.hero:hover { background: var(--orange); color: var(--navy); border: 0; box-shadow: none; }
 .hide-on-desktop { display: none !important; }
 
 /* ---------- Stations layer ---------- */

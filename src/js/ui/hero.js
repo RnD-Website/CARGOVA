@@ -48,6 +48,7 @@ export function initHeroInteractions({ onStart }) {
   );
 
   initTruckDrag();
+  initHeroButtonEdge();
 
   const hexBox = document.getElementById('hex-code');
   const hex = hexBox?.querySelector('.hex');
@@ -72,3 +73,21 @@ function initTruckDrag() {
   }
 }
 
+
+/**
+ * On hover the Start dispatch button turns orange; the page frame line runs along its
+ * right and bottom edges. Cut a hole in the frame exactly where the button sits while
+ * hovered, so the button reads borderless.
+ */
+function initHeroButtonEdge() {
+  const btn = document.getElementById('hero-button');
+  const frame = document.querySelector('.border-frame');
+  if (!btn || !frame) return;
+  btn.addEventListener('mouseenter', () => {
+    const f = frame.getBoundingClientRect();
+    const b = btn.getBoundingClientRect();
+    const x = b.left - f.left - 1, y = b.top - f.top - 1, w = b.width + 2, h = b.height + 2;
+    frame.style.clipPath = `path(evenodd, "M0 0 H${f.width} V${f.height} H0 Z M${x} ${y} H${x + w} V${y + h} H${x} Z")`;
+  });
+  btn.addEventListener('mouseleave', () => { frame.style.clipPath = ''; });
+}
