@@ -59,7 +59,6 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-family: var(--font-mono);
   font-size: 18px;
   line-height: 21.6px;
-  text-transform: lowercase;
   color: var(--white);
   opacity: 0.5;
 }
@@ -72,12 +71,12 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 }
 .display.medium { font-size: 36px; line-height: 39.6px; }
 .display.small { font-size: 20px; line-height: 24px; }
-.display.very-small { font-size: 18px; line-height: 21.6px; text-transform: lowercase; }
+.display.very-small { font-size: 18px; line-height: 21.6px; }
 
 .heading { font-family: var(--font-mono); color: var(--white); }
-.heading.h1 { font-size: 64px; line-height: 70.4px; text-transform: uppercase; }
-.heading.h2 { font-size: 48px; line-height: 52.8px; text-transform: uppercase; }
-.heading.h3 { font-size: 36px; line-height: 39.6px; letter-spacing: -0.48px; text-transform: uppercase; }
+.heading.h1 { font-size: 64px; line-height: 70.4px; }
+.heading.h2 { font-size: 48px; line-height: 52.8px; }
+.heading.h3 { font-size: 36px; line-height: 39.6px; letter-spacing: -0.48px; }
 .heading.h6 { font-family: var(--font-sans); font-size: 24px; line-height: 26.4px; color: var(--orange); }
 .heading.h7 { font-family: var(--font-sans); font-size: 20px; line-height: 24px; color: var(--orange); text-align: left; }
 
@@ -141,7 +140,6 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-size: 16px;
   color: var(--white);
   opacity: 0.7;
-  text-transform: lowercase;
 }
 .preloader-border {
   position: absolute;
@@ -205,7 +203,6 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-family: var(--font-mono);
   font-size: 16px;
   line-height: 16px;
-  text-transform: lowercase;
   color: var(--white);
   background: var(--blue);
   transition: background-color 0.3s var(--ease-ui), color 0.3s var(--ease-ui);
@@ -230,7 +227,6 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-size: 14px;
   line-height: 21.6px;
   letter-spacing: -0.48px;
-  text-transform: lowercase;
   color: var(--navy);
   background: var(--orange);
   border: 1px solid var(--navy);
@@ -509,7 +505,6 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
   font-family: var(--font-mono);
   font-size: 24px;
   line-height: 24px;
-  text-transform: uppercase;
   color: var(--white);
   white-space: nowrap;
   transition: opacity 0.4s var(--ease-ui);
@@ -614,7 +609,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .button.footer-button { height: 48px; padding: 0 32px; background: var(--white); border-color: var(--white); }
 .button.footer-button:hover { background: var(--orange); color: var(--navy); border-color: var(--navy); }
-.copyright { font-family: var(--font-mono); font-size: 14px; text-transform: lowercase; opacity: 0.6; }
+.copyright { font-family: var(--font-mono); font-size: 14px; opacity: 0.6; }
 
 /* ==========================================================================
    Responsive — mirrors the reference's tablet (≤991) and mobile (≤767) transforms
@@ -765,7 +760,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .hud-status {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px;
-  font-size: 12px; text-transform: lowercase;
+  font-size: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 .hud-clock { margin-left: auto; opacity: 0.7; font-variant-numeric: tabular-nums; }
@@ -797,7 +792,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .hud-viewport-head {
   position: absolute; top: 10px; left: 14px; right: 14px;
   display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  font-family: var(--font-mono); font-size: 12px; color: var(--white); text-transform: lowercase;
+  font-family: var(--font-mono); font-size: 12px; color: var(--white);
 }
 .hud-unit-id { opacity: 0.7; }
 .hud-stage { display: flex; align-items: center; gap: 10px; }
@@ -825,7 +820,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 }
 @keyframes hud-scan { 0% { transform: translateY(-64px); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(var(--scan-h, 560px)); opacity: 0; } }
 
-.hud-callout { position: absolute; display: flex; align-items: center; gap: 8px; pointer-events: none; font-family: var(--font-mono); font-size: 12px; color: var(--white); text-transform: lowercase; }
+.hud-callout { position: absolute; display: flex; align-items: center; gap: 8px; pointer-events: none; font-family: var(--font-mono); font-size: 12px; color: var(--white); }
 .hud-callout-line { display: block; height: 1px; width: 70px; background: var(--white); position: relative; }
 .hud-callout-line::before { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); border: 1px solid var(--white); top: -4px; }
 .hud-callout-text { padding: 3px 8px; border: 1px solid var(--white); background: var(--blue); white-space: nowrap; }
@@ -837,7 +832,7 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; }
 .hud-dims {
   position: absolute; bottom: 10px; left: 14px; right: 14px;
   display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
-  font-family: var(--font-mono); font-size: 12px; color: var(--white); opacity: 0.75; text-transform: lowercase;
+  font-family: var(--font-mono); font-size: 12px; color: var(--white); opacity: 0.75;
 }
 
 /* ---------- right column: log + map ---------- */

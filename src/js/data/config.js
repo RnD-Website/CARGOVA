@@ -16,9 +16,9 @@ export const CONFIG = {
 };
 
 export const STATIONS = [
-  { id: 1, label: 'station 1', title: 'why cargova?' },
-  { id: 2, label: 'station 2', title: 'move with us' },
-  { id: 3, label: 'station 3', title: 'start shipping' },
-  { id: 4, label: 'station 4', title: 'track & api' },
-  { id: 5, label: 'station 5', title: 'join our network' },
+  { id: 1, label: 'Station 1', title: 'Why CARGOVA?' },
+  { id: 2, label: 'Station 2', title: 'Move with us' },
+  { id: 3, label: 'Station 3', title: 'Start shipping' },
+  { id: 4, label: 'Station 4', title: 'Track & API' },
+  { id: 5, label: 'Station 5', title: 'Join our network' },
 ];

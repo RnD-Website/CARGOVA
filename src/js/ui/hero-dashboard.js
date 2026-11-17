@@ -6,16 +6,16 @@
 import { gsap } from 'gsap';
 
 const STAGES = [
-  { label: 'stage 1/5 · order received', c1: 'manifest · created', c2: 'frame · 40ft hc' },
-  { label: 'stage 2/5 · warehousing', c1: 'slot · aisle b-14', c2: 'floor · loaded 38%' },
-  { label: 'stage 3/5 · consolidated', c1: 'seal · cgv-88213', c2: 'doors · locked' },
-  { label: 'stage 4/5 · customs cleared', c1: 'telemetry · tagged', c2: 'docs · e-filed' },
-  { label: 'stage 5/5 · ready to dispatch', c1: 'telemetry · live gps', c2: 'cab · ev drive 92%' },
+  { label: 'Stage 1/5 · Order received', c1: 'Manifest · Created', c2: 'Frame · 40 ft HC' },
+  { label: 'Stage 2/5 · Warehousing', c1: 'Slot · Aisle B-14', c2: 'Floor · Loaded 38%' },
+  { label: 'Stage 3/5 · Consolidated', c1: 'Seal · CGV-88213', c2: 'Doors · Locked' },
+  { label: 'Stage 4/5 · Customs cleared', c1: 'Telemetry · Tagged', c2: 'Docs · E-filed' },
+  { label: 'Stage 5/5 · Ready to dispatch', c1: 'Telemetry · Live GPS', c2: 'Cab · EV drive 92%' },
 ];
 
 const CITIES = ['Rotterdam', 'Singapore', 'Shanghai', 'Dubai', 'Hamburg', 'Los Angeles', 'Chittagong', 'Mumbai', 'Santos', 'Busan', 'Antwerp', 'Felixstowe', 'Jebel Ali', 'Tokyo', 'Lagos'];
-const STATUS = [['in transit', ''], ['departed', 'go'], ['delivered', 'ok'], ['at customs', ''], ['loading', 'go'], ['on time', 'ok']];
-const MODES = ['sea', 'air', 'road', 'rail'];
+const STATUS = [['In transit', ''], ['Departed', 'go'], ['Delivered', 'ok'], ['At customs', ''], ['Loading', 'go'], ['On time', 'ok']];
+const MODES = ['Sea', 'Air', 'Road', 'Rail'];
 
 const pick = (a) => a[(Math.random() * a.length) | 0];
 const fmt = (n) => n.toLocaleString('en-US');
