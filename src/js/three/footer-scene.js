@@ -36,8 +36,29 @@ function liveryTexture() {
   return t;
 }
 
-/** CARGOVA cargo truck — branded box trailer, orange cab, navy chassis */
-export function buildCargoTruck() {
+function containerTexture() {
+  const c = document.createElement('canvas');
+  c.width = 1024; c.height = 440;
+  const x = c.getContext('2d');
+  x.fillStyle = '#fc5c21'; x.fillRect(0, 0, 1024, 440);
+  x.fillStyle = 'rgba(0,0,0,0.12)';
+  for (let i = 18; i < 1024; i += 52) x.fillRect(i, 0, 14, 440);           // corrugation ribs
+  x.fillStyle = '#ffffff';
+  x.font = 'bold 150px "Departure Mono", "Space Mono", monospace';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.fillText('CARGOVA', 512, 200);
+  x.fillRect(70, 300, 170, 50);                                            // tracking tag
+  x.fillStyle = '#073252'; x.font = '30px "Departure Mono", monospace';
+  x.fillText('CGV-0517', 155, 326);
+  x.fillStyle = '#073252'; x.fillRect(0, 410, 1024, 30);                   // bottom rail
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
+}
+
+/** CARGOVA cargo truck — branded box trailer (default) or flatbed carrying the red CARGOVA container ({ loaded: true }) */
+export function buildCargoTruck(opts = {}) {
   const root = new THREE.Group();
   const M = (c) => new THREE.MeshBasicMaterial({ color: c });
   const add = (w, h, d, x, y, z, m) => {
@@ -50,17 +71,29 @@ export function buildCargoTruck() {
 
   // chassis
   add(4.3, 0.22, 1.1, 0.15, -0.72, 0, navy);
-  // trailer with livery on both long sides (face order +x, -x, +y, -y, +z, -z)
-  const liv = new THREE.MeshBasicMaterial({ map: liveryTexture() });
-  const plainW = M(0xf4f8ff);
-  add(2.9, 1.35, 1.35, -0.55, 0.08, 0, [M(0xdfe9f7), M(0xdfe9f7), plainW, plainW, liv, liv]);
-  // rear doors
-  [-0.3, 0.0, 0.3].forEach((z) => add(0.03, 1.2, 0.04, -2.01, 0.08, z, navy));
-  // CARGOVA mark on the roof
-  add(0.9, 0.03, 0.75, -0.55, 0.77, 0, 0x288dfe);
-  add(0.16, 0.04, 0.55, -0.9, 0.79, 0, white);
-  add(0.5, 0.04, 0.14, -0.7, 0.79, -0.2, white);
-  add(0.5, 0.04, 0.14, -0.7, 0.79, 0.2, white);
+  if (opts.loaded) {
+    // flatbed deck + the red CARGOVA container that was loaded at the port dock (station 5)
+    add(3.0, 0.12, 1.3, -0.55, -0.55, 0, navy);
+    [-1.95, 0.85].forEach((x) => add(0.1, 0.18, 1.32, x, -0.45, 0, ink));           // bolsters
+    const box = new THREE.MeshBasicMaterial({ map: containerTexture() });
+    const plainO = M(orange), dark = M(0xd9461a);
+    add(2.85, 1.2, 1.25, -0.55, 0.11, 0, [dark, dark, plainO, plainO, box, box]);
+    [-0.32, 0.0, 0.32].forEach((z) => add(0.03, 1.05, 0.05, -1.99, 0.11, z, navy)); // door lock bars
+    add(0.06, 1.1, 0.06, -1.98, 0.11, 0.6, navy);
+    [[-1.94, 0.58], [-1.94, -0.58], [0.84, 0.58], [0.84, -0.58]].forEach(([x, z]) => add(0.12, 0.08, 0.12, x, -0.43, z, 0xffffff)); // twist locks
+  } else {
+    // trailer with livery on both long sides (face order +x, -x, +y, -y, +z, -z)
+    const liv = new THREE.MeshBasicMaterial({ map: liveryTexture() });
+    const plainW = M(0xf4f8ff);
+    add(2.9, 1.35, 1.35, -0.55, 0.08, 0, [M(0xdfe9f7), M(0xdfe9f7), plainW, plainW, liv, liv]);
+    // rear doors
+    [-0.3, 0.0, 0.3].forEach((z) => add(0.03, 1.2, 0.04, -2.01, 0.08, z, navy));
+    // CARGOVA mark on the roof
+    add(0.9, 0.03, 0.75, -0.55, 0.77, 0, 0x288dfe);
+    add(0.16, 0.04, 0.55, -0.9, 0.79, 0, white);
+    add(0.5, 0.04, 0.14, -0.7, 0.79, -0.2, white);
+    add(0.5, 0.04, 0.14, -0.7, 0.79, 0.2, white);
+  }
   // cab
   add(0.95, 1.15, 1.25, 1.45, -0.03, 0, orange);
   add(0.6, 0.6, 1.15, 2.2, -0.3, 0, orange);           // hood
@@ -91,8 +124,8 @@ export function createFooterScene(canvas, container) {
   const frustum = 2.5;
   const aspect = () => container.offsetWidth / Math.max(1, container.offsetHeight);
   const camera = new THREE.OrthographicCamera(-frustum * aspect(), frustum * aspect(), frustum, -frustum, 0.1, 1000);
-  camera.position.set(5, 5, 5);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(5, 4.3, 5);
+  camera.lookAt(0, -0.7, 0);       // frame the truck + road with room for the road to fade out below
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -104,6 +137,8 @@ export function createFooterScene(canvas, container) {
   controls.enableZoom = false;
   controls.enablePan = false;
   controls.enabled = !isMobileUA();
+  controls.target.set(0, -0.7, 0);  // same framing point as camera.lookAt above
+  controls.update();
 
   const key = new THREE.DirectionalLight(0xffffff, 5); key.position.set(5, 10, 5);
   scene.add(key);
@@ -120,7 +155,40 @@ export function createFooterScene(canvas, container) {
   composer.addPass(outline);
   composer.addPass(new OutputPass());
 
-  let model = buildCargoTruck();
+  // ---------- road (isometric strip with moving lane markings) ----------
+  const ROAD_Y = -0.96;               // top of the road = bottom of the wheels
+  const road = new THREE.Group();
+  // alpha ramp along the road's length: ends dissolve into the page instead of a hard cut
+  const fadeTex = (() => {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 4;
+    const g = c.getContext('2d').createLinearGradient(0, 0, 256, 0);
+    g.addColorStop(0, '#000'); g.addColorStop(0.4, '#fff'); g.addColorStop(0.62, '#fff'); g.addColorStop(1, '#000');
+    const x = c.getContext('2d'); x.fillStyle = g; x.fillRect(0, 0, 256, 4);
+    return new THREE.CanvasTexture(c);
+  })();
+  const ROAD_HALF = 3.8;
+  const roadMat = (c) => new THREE.MeshBasicMaterial({ color: c, alphaMap: fadeTex, transparent: true, depthWrite: false });
+  const slab = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.12, 2.5), roadMat(0x0a3a60));
+  slab.position.y = ROAD_Y - 0.06;
+  const kerbA = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.16, 0.14), roadMat(0x1d5d92));
+  kerbA.position.set(0, ROAD_Y - 0.04, 1.32);
+  const kerbB = kerbA.clone(); kerbB.position.z = -1.32;
+  const edgeMat = roadMat(0xffffff);
+  const edgeA = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.012, 0.05), edgeMat);
+  edgeA.position.set(0, ROAD_Y + 0.006, 1.08);
+  const edgeB = edgeA.clone(); edgeB.position.z = -1.08;
+  road.add(slab, kerbA, kerbB, edgeA, edgeB);
+  const DASH_GAP = 0.9;
+  const dashes = [];
+  for (let x = -3.7; x < 3.7; x += DASH_GAP) {
+    const d = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.014, 0.07), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false }));
+    d.position.set(x, ROAD_Y + 0.007, 0);
+    road.add(d); dashes.push(d);
+  }
+  road.position.x = 0.25;            // centred under the truck; both ends fully fade inside the canvas
+  scene.add(road);
+
+  let model = buildCargoTruck({ loaded: true });
   model.scale.setScalar(1.05);
   scene.add(model);
   outline.selectedObjects = [model];
@@ -142,15 +210,23 @@ export function createFooterScene(canvas, container) {
     if (!inView) return;
     if (controls.enabled) controls.update();
     const t = Date.now() * 0.001;
-    const amp = 0.25;
-    model.rotation.y = -amp * Math.sin(t);
-    model.position.y = amp * Math.sin(t) + 0.2;
+    // driving: lane markings scroll under the truck, small suspension bounce + gentle sway
+    dashes.forEach((d) => {
+      d.position.x -= 0.03;
+      if (d.position.x < -3.7) d.position.x += dashes.length * DASH_GAP;
+      const k = Math.abs(d.position.x) / ROAD_HALF;          // same fade as the road surface
+      d.material.opacity = k < 0.4 ? 1 : Math.max(0, 1 - (k - 0.4) / 0.6);
+    });
+    model.rotation.y = -0.06 * Math.sin(t * 0.7);
+    model.position.y = 0.2 + Math.abs(Math.sin(t * 6)) * 0.012;
     isMobileUA() ? renderer.render(scene, camera) : composer.render();
   }
 
   function resize() {
     const a = aspect();
-    camera.left = -frustum * a; camera.right = frustum * a; camera.top = frustum; camera.bottom = -frustum;
+    // wide canvas: fixed height; narrow (mobile) canvas: fit truck + road to the width
+    const f = a < 1.3 ? 3.3 / a : frustum;
+    camera.left = -f * a; camera.right = f * a; camera.top = f; camera.bottom = -f;
     camera.updateProjectionMatrix();
     renderer.setSize(container.offsetWidth, container.offsetHeight, false);
     composer.setSize(container.offsetWidth, container.offsetHeight);
