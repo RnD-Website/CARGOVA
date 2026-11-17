@@ -1,5 +1,5 @@
 /**
- * Hero dashboard HUD — live clock, ticking KPIs, sparkline, shipment log,
+ * Hero dashboard HUD — live shipment log,
  * animated route map, and stage readouts synced to the station hover.
  * All figures are illustrative demo data for the marketing site.
  */
@@ -18,7 +18,6 @@ const STATUS = [['In transit', ''], ['Departed', 'go'], ['Delivered', 'ok'], ['A
 const MODES = ['Sea', 'Air', 'Road', 'Rail'];
 
 const pick = (a) => a[(Math.random() * a.length) | 0];
-const fmt = (n) => n.toLocaleString('en-US');
 
 function logItem() {
   let a = pick(CITIES), b = pick(CITIES);
@@ -40,39 +39,6 @@ function initLog() {
     gsap.from(li, { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0, duration: 0.5, ease: 'power3.out' });
     while (list.children.length > 8) list.lastElementChild.remove();
   }, 2600);
-}
-
-function initClock() {
-  const el = document.getElementById('hud-clock');
-  if (!el) return;
-  const tick = () => { el.textContent = new Date().toISOString().slice(11, 19) + ' UTC'; };
-  tick();
-  setInterval(tick, 1000);
-}
-
-function initKpis() {
-  const transit = document.getElementById('kpi-transit');
-  const spark = document.querySelector('[data-spark="transit"]');
-  const bars = [];
-  if (spark) {
-    for (let i = 0; i < 18; i++) {
-      const b = document.createElement('i');
-      b.style.height = `${30 + Math.random() * 60}%`;
-      spark.appendChild(b);
-      bars.push(b);
-    }
-  }
-  let value = Number(transit?.dataset.value || 12486);
-  setInterval(() => {
-    if (document.hidden) return;
-    const next = value + ((Math.random() * 9) | 0) - 2;
-    const o = { v: value };
-    gsap.to(o, { v: next, duration: 0.8, ease: 'power2.out', onUpdate: () => (transit.textContent = fmt(Math.round(o.v))) });
-    value = next;
-    // shift sparkline
-    for (let i = 0; i < bars.length - 1; i++) bars[i].style.height = bars[i + 1].style.height;
-    if (bars.length) bars[bars.length - 1].style.height = `${40 + Math.random() * 60}%`;
-  }, 1800);
 }
 
 function initMap() {
@@ -125,17 +91,8 @@ export function setDashboardStage(stage) {
   });
 }
 
-function syncScanHeight() {
-  const vp = document.querySelector('.hud-viewport');
-  if (vp) vp.style.setProperty('--scan-h', `${vp.offsetHeight}px`);
-}
-
 export function initHeroDashboard() {
-  initClock();
-  initKpis();
   initLog();
   initMap();
   setDashboardStage(5);
-  syncScanHeight();
-  window.addEventListener('resize', syncScanHeight);
 }
