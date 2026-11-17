@@ -15,6 +15,7 @@ import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { CONFIG } from '../data/config.js';
+import { buildDockTruck } from './truck-model.js';
 
 const isMobileUA = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -144,8 +145,6 @@ export function createFooterScene(canvas, container) {
   controls.minPolarAngle = polar - 0.12;
   controls.maxPolarAngle = polar + 0.08;
 
-  const key = new THREE.DirectionalLight(0xffffff, 5); key.position.set(5, 10, 5);
-  scene.add(key);
 
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
@@ -192,9 +191,17 @@ export function createFooterScene(canvas, container) {
   road.position.x = 0.25;            // centred under the truck; both ends fully fade inside the canvas
   scene.add(road);
 
-  // white CARGOVA box trailer + orange cab: the same truck that was loaded at the station-5 dock
-  let model = buildCargoTruck();
-  model.scale.setScalar(1.05);
+  // the exact truck from the station-5 dock (shared model), shaded like the logistics world
+  scene.add(new THREE.AmbientLight(0xffffff, 1.55));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.3);
+  sun.position.set(-6, 14, 9);
+  scene.add(sun);
+  const dock = buildDockTruck();
+  const truckWheels = dock.wheels;
+  let model = new THREE.Group();
+  dock.truck.position.x = -0.45;     // centre the 4.8-long truck on the origin
+  model.add(dock.truck);
+  model.scale.setScalar(1.0);
   scene.add(model);
   outline.selectedObjects = [model];
 
@@ -223,7 +230,8 @@ export function createFooterScene(canvas, container) {
       d.material.opacity = k < 0.4 ? 1 : Math.max(0, 1 - (k - 0.4) / 0.6);
     });
     model.rotation.y = -0.06 * Math.sin(t * 0.7);
-    model.position.y = 0.2 + Math.abs(Math.sin(t * 6)) * 0.012;
+    model.position.y = ROAD_Y + Math.abs(Math.sin(t * 6)) * 0.012;
+    truckWheels.forEach((w) => (w.rotation.y -= 0.12));   // wheels roll
     isMobileUA() ? renderer.render(scene, camera) : composer.render();
   }
 

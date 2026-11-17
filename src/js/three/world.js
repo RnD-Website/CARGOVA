@@ -15,6 +15,7 @@
  *  5 Port: cargo ship + truck fleet  (join our network)
  */
 import * as THREE from 'three';
+import { buildDockTruck } from './truck-model.js';
 
 const COL = {
   navy: 0x0a3a60,
@@ -510,46 +511,9 @@ export function createWorld(canvas) {
     anim.push((t) => { ship.position.y = Math.sin(t * 1.2) * 0.06; ship.rotation.x = Math.sin(t * 0.9) * 0.01; });
     g.add(ship);
     // cargo truck — reverses up to the dock gate, gets loaded, drives off, next one backs in
-    const truck = new THREE.Group();
     const DOCK_X = 9.65; // trailer rear (-1.9) meets the gate's back face (7.7)
+    const { truck, wheels } = buildDockTruck({ lineMat, mat });
     truck.position.set(DOCK_X, 0, 0);
-    box(truck, 1.3, 1.3, 1.3, 2.2, 0.9, 0, COL.orange); // cab
-    box(truck, 0.05, 0.5, 1.0, 2.86, 1.2, 0, COL.sky, { edges: false });
-    box(truck, 0.12, 0.9, 0.12, 1.45, 1.6, -0.5, COL.ink, { edges: false }); // exhaust
-    // trailer with CARGOVA livery on both long sides
-    {
-      const c = document.createElement('canvas');
-      c.width = 720; c.height = 300;
-      const x = c.getContext('2d');
-      x.fillStyle = '#f4f8ff'; x.fillRect(0, 0, 720, 300);
-      x.fillStyle = '#fc5c21'; x.fillRect(0, 205, 720, 42);           // orange band
-      x.fillStyle = '#073252'; x.fillRect(0, 247, 720, 10);
-      x.font = 'bold 118px "Departure Mono", "Space Mono", monospace';
-      x.textAlign = 'center'; x.textBaseline = 'middle';
-      x.fillText('CARGOVA', 360, 112);
-      x.font = '26px "Departure Mono", "Space Mono", monospace';
-      x.fillText('intelligent logistics', 360, 182);
-      const tex = new THREE.CanvasTexture(c);
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = 8;
-      const side = new THREE.MeshLambertMaterial({ map: tex });
-      const plain = mat(COL.white);
-      const geo = new THREE.BoxGeometry(3.6, 1.5, 1.4);
-      // face order +x, -x, +y, -y, +z, -z
-      const trailer = new THREE.Mesh(geo, [plain, plain, plain, plain, side, side]);
-      trailer.position.set(-0.15, 1.05, 0);
-      trailer.castShadow = true;
-      trailer.receiveShadow = true;
-      trailer.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), lineMat));
-      truck.add(trailer);
-    }
-    box(truck, 3.7, 0.18, 1.0, -0.1, 0.24, 0, COL.ink, { edges: false });     // chassis
-    const wheels = [];
-    [[-1.4, 0.68], [-0.6, 0.68], [2.2, 0.68], [-1.4, -0.68], [-0.6, -0.68], [2.2, -0.68]].forEach(([a, b]) => {
-      const wh = cyl(truck, 0.28, 0.22, a, 0.28, b, COL.ink, 12, { edges: false });
-      wh.rotation.x = Math.PI / 2;
-      wheels.push(wh);
-    });
     g.add(truck);
     // cycle: 0–7s loading at the dock · 7–9s drive away (+x) · 9–11s next truck reverses in
     const CYCLE = 11;
