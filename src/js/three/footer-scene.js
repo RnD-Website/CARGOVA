@@ -139,6 +139,10 @@ export function createFooterScene(canvas, container) {
   controls.enabled = !isMobileUA();
   controls.target.set(0, -0.7, 0);  // same framing point as camera.lookAt above
   controls.update();
+  // turntable only: lock the viewing height so the truck can't be flipped into a top-down view
+  const polar = controls.getPolarAngle();
+  controls.minPolarAngle = polar - 0.12;
+  controls.maxPolarAngle = polar + 0.08;
 
   const key = new THREE.DirectionalLight(0xffffff, 5); key.position.set(5, 10, 5);
   scene.add(key);
@@ -188,7 +192,8 @@ export function createFooterScene(canvas, container) {
   road.position.x = 0.25;            // centred under the truck; both ends fully fade inside the canvas
   scene.add(road);
 
-  let model = buildCargoTruck({ loaded: true });
+  // white CARGOVA box trailer + orange cab: the same truck that was loaded at the station-5 dock
+  let model = buildCargoTruck();
   model.scale.setScalar(1.05);
   scene.add(model);
   outline.selectedObjects = [model];
@@ -225,7 +230,8 @@ export function createFooterScene(canvas, container) {
   function resize() {
     const a = aspect();
     // wide canvas: fixed height; narrow (mobile) canvas: fit truck + road to the width
-    const f = a < 1.3 ? 3.3 / a : frustum;
+    // keep the whole truck (≈4.9 long) in frame at any turntable angle
+    const f = Math.max(frustum, 3.1 / a);
     camera.left = -f * a; camera.right = f * a; camera.top = f; camera.bottom = -f;
     camera.updateProjectionMatrix();
     renderer.setSize(container.offsetWidth, container.offsetHeight, false);
