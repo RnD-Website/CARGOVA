@@ -14,11 +14,12 @@
 .nav-bar > * { pointer-events: auto; }
 
 .home-button { position: relative; display: block; width: 200px; height: 48px; }
-.logo-brandname { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; }
+.logo-brandname { position: absolute; inset: 0; display: flex; align-items: center; gap: 12px; }
 .logo-brandname.ontop { opacity: 0; }
-.logo-mark { width: 48px; height: 48px; display: block; }
-.logo-word { width: 136px; height: 48px; overflow: visible; }
-.wordmark { font-family: var(--font-mono); font-size: 34px; letter-spacing: -1px; }
+.logo-mark { width: 40px; height: 40px; display: block; flex: none; }
+.logo-mark svg { display: block; }
+.logo-word { width: 132px; height: 40px; overflow: visible; display: block; }
+.wordmark { font-family: var(--font-mono); font-size: 30px; letter-spacing: -0.5px; }
 .wordmark--blueprint { fill: none; stroke: var(--white); stroke-width: 1.2px; }
 .wordmark--color { fill: var(--orange); stroke: var(--navy); stroke-width: 1.4px; paint-order: stroke; }
 

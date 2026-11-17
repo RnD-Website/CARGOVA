@@ -299,5 +299,14 @@ export function logoMark(mode = 'blueprint') {
   let out = box(P, { x: 0, y: 0, z: 0, w: 7, d: 5, h: 5 }, st);
   for (let u = 0.9; u < 7; u += 0.9) out += line(P, [u, 5, 0.6], [u, 5, 4.4], stroke, 1);
   out += poly(P, [[1.6, 1.2, 5.02], [5, 1.2, 5.02], [5, 2, 5.02], [2.5, 2, 5.02], [2.5, 3, 5.02], [5, 3, 5.02], [5, 3.8, 5.02], [1.6, 3.8, 5.02]], mode === 'blueprint' ? '#ffffff' : navy, 'none', 0);
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="48" height="48" aria-hidden="true">${out}</svg>`;
+  // fit the viewBox tightly around the drawing so the mark is optically centred
+  const corners = [];
+  [0, 7].forEach((x) => [0, 5].forEach((y) => [0, 5].forEach((z) => corners.push(P(x, y, z)))));
+  const xs = corners.map((c) => c[0]), ys = corners.map((c) => c[1]);
+  const pad = 1.5;
+  const minX = Math.min(...xs) - pad, minY = Math.min(...ys) - pad;
+  const w = Math.max(...xs) - Math.min(...xs) + pad * 2, h = Math.max(...ys) - Math.min(...ys) + pad * 2;
+  const side = Math.max(w, h);
+  const vx = minX - (side - w) / 2, vy = minY - (side - h) / 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx.toFixed(1)} ${vy.toFixed(1)} ${side.toFixed(1)} ${side.toFixed(1)}" width="100%" height="100%" aria-hidden="true">${out}</svg>`;
 }

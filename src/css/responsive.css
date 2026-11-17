@@ -78,7 +78,7 @@
   .footer-wrapper { padding: 96px 16px 24px; }
   .display.medium { font-size: 24px; line-height: 28px; }
   .logo-footer .logo-word { width: 150px; }
-  .logo-mark--xl, .logo-mark--xl svg { width: 52px; height: 52px; }
+  .logo-mark--xl { width: 44px; height: 44px; }
 }
 
 @media (min-width: 768px) {
