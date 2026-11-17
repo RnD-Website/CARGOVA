@@ -39,8 +39,15 @@ function toBlueprint(model) {
     if (m.map) return livery;
     return BLUEISH.has(m.color.getHex()) ? blue : white;
   };
+  const tyre = new THREE.MeshBasicMaterial({ color: 0x111111 });
   model.traverse((o) => {
     if (!o.isMesh) return;
+    // tyres (the 0.27-radius wheel cylinders) are black; hubs stay white
+    if (o.geometry.type === 'CylinderGeometry' && Math.abs(o.geometry.parameters.radiusTop - 0.27) < 0.01) {
+      o.material = tyre;
+      o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 25), edgeMat));
+      return;
+    }
     o.material = Array.isArray(o.material) ? o.material.map(pick) : pick(o.material);
     // line work on white parts only (blue parts already read as lines)
     const isBlue = !Array.isArray(o.material) && o.material === blue;
