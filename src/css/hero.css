@@ -30,19 +30,16 @@
 }
 .unit-big-preview.is-active { opacity: 1; }
 
-/* spec box — 902 × 142 bottom-left */
+/* spec box — full width of the preview column, edge to edge with the sidebar */
 .specification-box {
   display: flex;
-  width: 902px;
-  max-width: 100%;
-  border: 1px solid var(--white);
-  border-left: 0;
-  border-bottom: 0;
+  width: 100%;
+  border-top: 1px solid var(--white);
   color: var(--white);
 }
 .large-box { flex: 1; padding: 24px 64px 24px 24px; display: flex; flex-direction: column; justify-content: flex-end; }
 .large-box .label { margin-bottom: 4px; }
-.small-boxes { width: 360px; display: flex; flex-direction: column; border-left: 1px solid var(--white); }
+.small-boxes { width: min(46%, 640px); display: flex; flex-direction: column; border-left: 1px solid var(--white); }
 .small-box { flex: 1; padding: 12px 48px 12px 16px; }
 .small-box.underline { border-bottom: 1px solid var(--white); }
 .hex { cursor: default; }
@@ -77,7 +74,7 @@
   background: var(--white);
   color: var(--navy);
   border: 1px solid var(--white);
-  border-radius: 0 0 var(--radius) 0;
+  border-radius: 0;
 }
 .button.hero:hover { background: var(--orange); color: var(--navy); }
 .hide-on-desktop { display: none !important; }

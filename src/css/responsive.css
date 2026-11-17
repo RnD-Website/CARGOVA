@@ -4,7 +4,6 @@
 
 @media (max-width: 1279px) {
   .hero-sidebar { width: 360px; }
-  .specification-box { width: 100%; }
   .small-boxes { width: 300px; }
 }
 
@@ -15,7 +14,7 @@
   .hide-on-desktop { display: flex !important; }
   .hero-sidebar { display: none; }
   .hero-content { flex-direction: column; }
-  .hero-big-preview { border: 1px solid var(--white); border-radius: var(--radius); overflow: hidden; }
+  .hero-big-preview { border: 1px solid var(--white); border-radius: 0; overflow: hidden; }
   .hero-units-list { width: min(529px, 64vh, 80vw); height: min(529px, 64vh, 80vw); }
   .specification-box { flex-direction: column; border-right: 0; }
   .large-box { padding: 24px 16px; }

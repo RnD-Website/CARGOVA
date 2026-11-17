@@ -17,7 +17,7 @@
 /* ---------- panels ---------- */
 .hud-panel {
   border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: var(--radius);
+  border-radius: 0;
   background: rgba(7, 50, 82, 0.12);
   backdrop-filter: blur(2px);
   color: var(--white);
@@ -33,7 +33,7 @@
 }
 
 .hud-live-dot {
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 8px; height: 8px; border-radius: 0;
   background: var(--orange);
   box-shadow: 0 0 0 0 rgba(252, 92, 33, 0.7);
   animation: hud-pulse 1.6s infinite;
@@ -67,7 +67,7 @@
 .hud-unit-id { opacity: 0.7; }
 .hud-stage { display: flex; align-items: center; gap: 10px; }
 .hud-stage-bar { display: flex; gap: 3px; }
-.hud-stage-bar i { width: 18px; height: 6px; border: 1px solid var(--white); border-radius: 1px; transition: background-color 0.25s var(--ease-snap); }
+.hud-stage-bar i { width: 18px; height: 6px; border: 1px solid var(--white); border-radius: 0; transition: background-color 0.25s var(--ease-snap); }
 .hud-stage-bar i.on { background: var(--white); }
 .hud-stage-bar i.on:last-of-type, .hud-stage-bar i.current { background: var(--orange); border-color: var(--orange); }
 
@@ -94,7 +94,7 @@
 
 .hud-callout { position: absolute; display: flex; align-items: center; gap: 8px; pointer-events: none; font-family: var(--font-mono); font-size: 12px; color: var(--white); }
 .hud-callout-line { display: block; height: 1px; width: 70px; background: var(--white); position: relative; }
-.hud-callout-line::before { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); border: 1px solid var(--white); top: -4px; }
+.hud-callout-line::before { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 0; background: var(--orange); border: 1px solid var(--white); top: -4px; }
 .hud-callout-text { padding: 3px 8px; border: 1px solid var(--white); background: var(--blue); white-space: nowrap; }
 .hud-callout.c1 { top: 24%; left: 50%; }
 .hud-callout.c1 .hud-callout-line::before { left: -4px; }
@@ -117,7 +117,7 @@
   border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
 }
 .hud-log-list li .id { color: var(--white); }
-.hud-log-list li .st { justify-self: end; padding: 0 5px; border-radius: 2px; background: rgba(255, 255, 255, 0.18); }
+.hud-log-list li .st { justify-self: end; padding: 0 5px; border-radius: 0; background: rgba(255, 255, 255, 0.18); }
 .hud-log-list li .st.ok { background: var(--white); color: var(--navy); }
 .hud-log-list li .st.go { background: var(--orange); color: var(--navy); }
 .hud-log-list li .rt { grid-column: 1 / -1; opacity: 0.7; }
