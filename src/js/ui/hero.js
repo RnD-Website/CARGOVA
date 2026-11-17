@@ -72,36 +72,3 @@ function initTruckDrag() {
   }
 }
 
-/** Hero menu: icon toggles a navigation panel (GSAP reveal, Esc / outside click closes). */
-export function initHeroMenu() {
-  const menu = document.getElementById('hero-menu');
-  const toggle = document.getElementById('hero-menu-toggle');
-  const panel = document.getElementById('hero-menu-panel');
-  if (!menu || !toggle || !panel) return;
-  const items = panel.querySelectorAll('.hero-menu-head, .hero-menu-link, .hero-menu-cta');
-  let tl;
-  const open = () => {
-    menu.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close navigation');
-    tl?.kill();
-    tl = gsap.timeline()
-      .set(panel, { visibility: 'visible' })
-      .fromTo(panel, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.45, ease: 'power3.out' })
-      .fromTo(items, { autoAlpha: 0, x: 14 }, { autoAlpha: 1, x: 0, duration: 0.35, ease: 'power3.out', stagger: 0.05 }, 0.1);
-  };
-  const close = () => {
-    if (!menu.classList.contains('is-open')) return;
-    menu.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation');
-    tl?.kill();
-    tl = gsap.timeline()
-      .to(panel, { clipPath: 'inset(0 0 100% 0)', duration: 0.3, ease: 'power2.in' })
-      .set(panel, { visibility: 'hidden' });
-  };
-  toggle.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.contains('is-open') ? close() : open(); });
-  document.addEventListener('click', (e) => { if (!menu.contains(e.target)) close(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); toggle.focus(); } });
-  panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => close()));
-}

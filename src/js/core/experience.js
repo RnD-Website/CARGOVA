@@ -190,7 +190,7 @@ export function createExperience({ world, footer }) {
     preventDefault: true,
     onUp: next,     // wheel down / swipe up
     onDown: prev,   // wheel up / swipe down
-    ignore: '.marquee-track, .hero-units-list, .hero-menu-panel',
+    ignore: '.marquee-track, .hero-units-list',
   });
 
   window.addEventListener('keydown', (e) => {
